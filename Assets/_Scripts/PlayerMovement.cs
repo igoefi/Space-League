@@ -7,15 +7,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {   
     [Header("Movement")]
-    [SerializeField] private float WalkSpeed;
-    [SerializeField] private float DashSpeed;
-    [SerializeField] private float Drag;
-    [SerializeField] private float MaxAngleOnSlop;
+    public float WalkSpeed;
+    public float DashSpeed;
+    public float Drag;
+    public float MaxAngleOnSlop;
 
     [Header("Dash")]
-    [SerializeField] private float DashForce;
-    [SerializeField] private float DashDuration;
-    [SerializeField] private float DashCooldown;
+    public float DashForce;
+    public float DashDuration;
+    public float DashCooldown;
 
     private float _speed;
     private float _dashTimer;
@@ -64,14 +64,6 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    private void  CurrentSpeed(){
-        if(_dashing){
-            _speed = DashSpeed;
-        }
-        else{
-            _speed = WalkSpeed;
-        }
-    }
 
     private void Move(){
         if(OnSlope()){
@@ -114,6 +106,14 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
     #region Util
+    private void  CurrentSpeed(){
+        if(_dashing){
+            _speed = DashSpeed;
+        }
+        else{
+            _speed = WalkSpeed;
+        }
+    }
     private void SpeedControl(){
         Vector3 flowVel = new Vector3(_playerRB.velocity.x, 0, _playerRB.velocity.z);
 
