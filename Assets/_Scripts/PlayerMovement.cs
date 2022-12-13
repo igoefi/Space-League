@@ -27,9 +27,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _inputDir;
     private RaycastHit _slopeHit;
     private Rigidbody _playerRB;
+    private Player _player;
 
     private void Start() {
         _playerRB = GetComponent<Rigidbody>();
+        _player = GetComponent<Player>();
     }
 
 
@@ -51,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private void PlayerInput(){
         _inputDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
-        if(Input.GetButtonDown("Jump") && _dashIsReady){
+        if(Input.GetButtonDown("Jump") && _dashIsReady && _player.Stamina > 25){
             StartDash();
         }
     }
@@ -80,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
         _dashTimer = DashDuration;
 
+        _player.DecreaseStamina(25);
     }
     private void Dash(){
         if(OnSlope()){
