@@ -1,6 +1,11 @@
-﻿using UnityEngine;
+﻿/*
+ Создано Kayner, изменено igoefi
+ */
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class EnemyVision : MonoBehaviour
 {
@@ -8,14 +13,15 @@ public class EnemyVision : MonoBehaviour
     [SerializeField] int rays = 8;
     [SerializeField] int distance = 33;
     [SerializeField] float angle = 40;
+
     [SerializeField] Vector3 offset;
     [SerializeField] Transform target;
-    private NavMeshAgent Nana;
 
+    private EnemyAI _enemyAI;
     void Start()
     {
         target = GameObject.FindGameObjectWithTag(targetTag).transform;
-        Nana = GetComponent<NavMeshAgent>();
+        _enemyAI = GetComponent<EnemyAI>();
     }
     void Update()
     {
@@ -23,11 +29,9 @@ public class EnemyVision : MonoBehaviour
         {
             if (RayToScan())
             {
-                Nana.enabled = true;   // Контакт с целью
-            }
-            else
-            {
-                // Поиск цели...
+                _enemyAI.enabled = true;
+                _enemyAI.SetTarget(target);
+                this.enabled = false;
             }
         }
     }
@@ -35,9 +39,8 @@ public class EnemyVision : MonoBehaviour
     bool GetRaycast(Vector3 dir)
     {
         bool result = false;
-        RaycastHit hit = new RaycastHit();
         Vector3 pos = transform.position + offset;
-        if (Physics.Raycast(pos, dir, out hit, distance))
+        if (Physics.Raycast(pos, dir, out RaycastHit hit, distance))
         {
             if (hit.transform == target)
             {
