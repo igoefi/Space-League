@@ -3,5 +3,9 @@ public enum DamageType{
     Fire,
     Shock,
 }
+public enum ArmorType{
+    Physical,
+    Energy
+}
 
 
