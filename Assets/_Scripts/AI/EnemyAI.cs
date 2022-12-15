@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+//создано igoefi
+
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -11,46 +11,56 @@ public class EnemyAI : MonoBehaviour
 
     private NavMeshAgent _navMeshAgent;
     private Transform _playerTransform;
-    
+
     //to check
     [SerializeField] float _maxDistanceToPlayer = 3;
 
+    private bool _isMoving = true;
+
     private void Start()
     {
-        _navMeshAgent= GetComponent<NavMeshAgent>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         FrontOfPlayer.AddListener(Attack);
         MoveToPlayer.AddListener(Move);
 
-        _navMeshAgent.stoppingDistance= _maxDistanceToPlayer;
+        _navMeshAgent.stoppingDistance = _maxDistanceToPlayer;
+
+        MoveToPlayer.Invoke();
     }
 
     //to check
     private void Attack()
     {
         Debug.Log("Attack");
-    }   
+    }
     private void Move()
     {
         Debug.Log("Move");
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_playerTransform == null)
             return;
 
         if (Vector3.Distance(transform.position, _playerTransform.position) <= _maxDistanceToPlayer)
         {
+            if (!_isMoving) return;
+
             FrontOfPlayer.Invoke();
 
-            _navMeshAgent.isStopped= true;
+            _navMeshAgent.isStopped = true;
+            _isMoving = false;
         }
         else
         {
-            MoveToPlayer.Invoke();
+            if (!_isMoving)
+                MoveToPlayer.Invoke();
 
-            _navMeshAgent.isStopped= false;
+            _navMeshAgent.isStopped = false;
             _navMeshAgent.SetDestination(_playerTransform.position);
+
+            _isMoving = true;
         }
     }
 
