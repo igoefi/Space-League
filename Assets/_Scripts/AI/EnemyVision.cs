@@ -1,8 +1,4 @@
-﻿/*
- Создано Kayner, изменено igoefi
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.Events;

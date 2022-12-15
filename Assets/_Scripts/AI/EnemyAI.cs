@@ -1,5 +1,3 @@
-//создано igoefi
-
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
