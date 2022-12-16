@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< Updated upstream
   m_IndirectSpecularColor: {r: 0.06606466, g: 0.057404704, b: 0.036197238, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.26600346, g: 0.24589217, b: 0.19017512, a: 1}
+>>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -807,6 +811,10 @@ MonoBehaviour:
   angle: 60
   offset: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
+<<<<<<< Updated upstream
+=======
+  _enemyAI: {fileID: 0}
+>>>>>>> Stashed changes
 --- !u!114 &778440838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,7 +827,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebcc243891c7ef40a723277e64d6e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   _maxDistanceToPlayer: 5
+=======
+  <FrontOfPlayer>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+  <MoveToPlayer>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+  _navMeshAgent: {fileID: 0}
+  _playerTransform: {fileID: 0}
+  _maxDistanceToPlayer: 5
+  _isMoving: 1
+>>>>>>> Stashed changes
 --- !u!850595691 &883990097
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1114,7 +1137,10 @@ MonoBehaviour:
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
+<<<<<<< Updated upstream
     serializedVersion: 2
+=======
+>>>>>>> Stashed changes
     m_Bits: 4294967295
   m_UseGeometry: 0
   m_DefaultArea: 0
@@ -1126,6 +1152,11 @@ MonoBehaviour:
   m_VoxelSize: 0.21666665
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 6972a56109a0d554584e15205082b655, type: 2}
+<<<<<<< Updated upstream
+=======
+  m_LastPosition: {x: 9.40477, y: 12.86, z: 3.4056225}
+  m_LastRotation: {x: 0, y: 0, z: 0, w: 1}
+>>>>>>> Stashed changes
 --- !u!43 &1745828790
 Mesh:
   m_ObjectHideFlags: 0
