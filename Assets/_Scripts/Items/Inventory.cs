@@ -23,9 +23,18 @@ public class Inventory : MonoBehaviour
         StartCoroutine(CallItemUpdate());
         Enemy.OnDieEvent += AddCoin;
     }
-   
     public void AddCoin(int amount){
         _coins += amount;
+    }
+    public void DropItem(int itemIndex){
+        if(items[itemIndex].Stacks > 1){
+            items[itemIndex].Stacks--;
+            items[itemIndex].Item.OnDrop(_playerRef);
+        }
+        else{
+            items[itemIndex].Item.OnDrop(_playerRef);
+            items.Remove(items[itemIndex]);
+        }
     }
     private IEnumerator CallItemUpdate(){
         foreach(ItemList item in items){
@@ -35,9 +44,19 @@ public class Inventory : MonoBehaviour
         StartCoroutine(CallItemUpdate());
     }
 
+    //for bullet hit
     public void CallItemOnHit(Enemy enemy){
         foreach(ItemList item in items){
             item.Item.OnHit(enemy, item.Stacks);
+        }
+    }
+
+    public void CallItemOnPickup(){
+        foreach(ItemList item in items){
+            if(!item.IsUsed){
+                item.Item.OnPickup(_playerRef, 1);
+                item.IsUsed = true;
+            }
         }
     }
 }

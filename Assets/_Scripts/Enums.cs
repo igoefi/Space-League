@@ -10,7 +10,7 @@ public enum ArmorType{
 public enum Items{
     HealighItem,
     FireDamageItem,
-    
+    IncreaseMaxHp,
 }
 
 

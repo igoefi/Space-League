@@ -18,7 +18,7 @@ public abstract class Character : MonoBehaviour, IDamageable
     [SerializeField]protected Armor Armor;
     [SerializeField]private float _armor;
 
-    private float _timerStamina;
+    // private float _timerStamina;
     private float _timerArmor;
 
     protected void Start() {
@@ -37,15 +37,15 @@ public abstract class Character : MonoBehaviour, IDamageable
         }
 
         StaminaRecovery();
-        if(Armor != null){
+        if(Armor != null && _armor != Armor.Durability){
             ArmorRecovery();
 
         }
     }
-    protected void SetMaxHp(float amount){
+    public void SetMaxHp(float amount){
         _maxHp += amount;
     }
-    protected void SetMaxStamina(float amount){
+    public void SetMaxStamina(float amount){
         _maxStamina += amount;
     }
 
@@ -54,13 +54,14 @@ public abstract class Character : MonoBehaviour, IDamageable
     }
 
     protected virtual void ArmorRecovery(){
-        _timerArmor -= Time.deltaTime;
         if(_armor < Armor.Durability && _timerArmor <= 0){
             _armor += Armor.SpeedRegen * Time.deltaTime;
+            return;
         }
+        _timerArmor -= Time.deltaTime;
     } 
     protected virtual void StaminaRecovery(){
-        if(_stamina < _maxStamina && _timerStamina <= 0){
+        if(_stamina < _maxStamina){
             _stamina += 5 * Time.deltaTime;
         }
     }

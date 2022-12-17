@@ -7,7 +7,10 @@ public class Enemy : Character
     public delegate void OnDie(int dropCoin);
     public static OnDie OnDieEvent;
     
-    
+    private void OnMouseDown() {
+        TakeDamage(5, DamageType.Physical);
+        Inventory.Instance.CallItemOnHit(this);
+    }
 
 
 

@@ -7,6 +7,7 @@ public class ItemList
 {
     public Item Item;
     public string Name;
+    public bool IsUsed = false;
     public int Stacks;
 
     public ItemList(Item newItem, string newName, int newStacks){

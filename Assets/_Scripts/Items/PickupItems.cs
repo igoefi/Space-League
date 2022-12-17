@@ -16,6 +16,7 @@ public class PickupItems : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Player")){
             AddItem();
+            Inventory.Instance.CallItemOnPickup();
             Destroy(gameObject);
         }
     }
@@ -24,16 +25,19 @@ public class PickupItems : MonoBehaviour
         foreach(ItemList item in Inventory.Instance.Items){
             if(Item.Name == item.Name){
                 item.Stacks++;
+                item.IsUsed = false;
                 return;
             }
         }
         Inventory.Instance.Items.Add(new ItemList(Item, Item.Name, 1));
     }
+    
 
     private Item AssignItem(Items item){
         switch(item){
             case Items.HealighItem: return new HealighItem();
             case Items.FireDamageItem: return new FireDamageItem();
+            case Items.IncreaseMaxHp: return new IncreaseMaxHp();
 
             default: return new HealighItem();
         }
