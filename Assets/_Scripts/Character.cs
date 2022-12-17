@@ -21,7 +21,7 @@ public abstract class Character : MonoBehaviour, IDamageable
     private float _timerStamina;
     private float _timerArmor;
 
-    private void Start() {
+    protected void Start() {
         _hp = _maxHp;
         _stamina = _maxStamina;
 
@@ -37,9 +37,16 @@ public abstract class Character : MonoBehaviour, IDamageable
         }
 
         StaminaRecovery();
-        ArmorRecovery();
+        if(Armor != null){
+            ArmorRecovery();
 
-        
+        }
+    }
+    protected void SetMaxHp(float amount){
+        _maxHp += amount;
+    }
+    protected void SetMaxStamina(float amount){
+        _maxStamina += amount;
     }
 
     public virtual void DecreaseStamina(float amount){
@@ -63,7 +70,7 @@ public abstract class Character : MonoBehaviour, IDamageable
         _hp = _hp > _maxHp ? _maxHp : _hp;
     }
     public virtual void TakeDamage(float damage, DamageType type){
-        if(_armor > 0 && Armor != null){
+        if(_armor > 0){
             _armor -= damage / Armor.Resistance[type];
             _timerArmor = Armor.CooldownRegen;
             if(_armor < 0){
