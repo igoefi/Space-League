@@ -6,27 +6,25 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
 
-    private int _coins;
     
+    [SerializeField]private Resources _resources;
 
-
-
-    private List<ItemList> items = new List<ItemList>();
+    [SerializeField]private List<ItemList> items = new List<ItemList>();
     public List<ItemList> Items{
         get => items;
     }
+
     [SerializeField]private Player _playerRef;
     private void Awake() {
         Instance = this;
+        _resources.StorageInit();
     }
     private void Start() {
         StartCoroutine(CallItemUpdate());
-        Enemy.OnDieEvent += AddCoin;
+        Enemy.OnDieEvent += _resources.AddResource;
     }
-    public void AddCoin(int amount){
-        _coins += amount;
-    }
-    public void DropItem(int itemIndex){
+    
+    private void DropItem(int itemIndex){
         if(items[itemIndex].Stacks > 1){
             items[itemIndex].Stacks--;
             items[itemIndex].Item.OnDrop(_playerRef);
@@ -54,8 +52,15 @@ public class Inventory : MonoBehaviour
     public void CallItemOnPickup(){
         foreach(ItemList item in items){
             if(!item.IsUsed){
-                item.Item.OnPickup(_playerRef, 1);
-                item.IsUsed = true;
+                if(item.ForPlayer){
+                    item.Item.OnPickup(_playerRef, 1);
+                    item.IsUsed = true;
+                }
+                else{
+                    // For weapon
+                    // item.Item.OnPickup(_weaponRef, 1);
+                    // item.IsUsed = true;
+                }
             }
         }
     }

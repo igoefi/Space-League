@@ -14,11 +14,14 @@ public class Armor : ScriptableObject
     public Resistance[] StartResistance = new Resistance[3];
     public Dictionary<DamageType, float> Resistance = new Dictionary<DamageType, float>();
 
-    public void InitDictionary(){
+  
+
+    public void Init(){
         for(int i = 0; i < StartResistance.Length; i++){
             Resistance[StartResistance[i].type] = StartResistance[i].values;
         }
 
     }
+    
 
 }

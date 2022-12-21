@@ -26,12 +26,15 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 _inputDir;
     private RaycastHit _slopeHit;
+    private RaycastHit _groundHit;
     private Rigidbody _playerRB;
     private Player _player;
 
     private void Start() {
         _playerRB = GetComponent<Rigidbody>();
         _player = GetComponent<Player>();
+
+        _player.OnNegativeEffectEvent =  Slowing;
     }
 
 
@@ -40,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
         CurrentSpeed();
         SpeedControl();
 
-        _onGround = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.2f);
+        _onGround = Physics.Raycast(transform.position, Vector3.down, out _groundHit, 2 * 0.5f + 0.2f);
+        _playerRB.useGravity = !OnSlope();
 
         if(_inputDir == Vector3.zero && !_dashing && _onGround){
             _playerRB.drag = Drag;
@@ -59,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate() {
+        if(_playerRB.velocity.y > 0){
+            _playerRB.AddForce(Vector3.down * 100f, ForceMode.Force);
+        }
         if(_dashing){
             Dash();
             return;
@@ -69,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(){
         if(OnSlope()){
-            _playerRB.AddForce(Vector3.ProjectOnPlane(_inputDir.ToIso(), _slopeHit.normal) * _speed * 10, ForceMode.Force);
+            _playerRB.AddForce(Vector3.ProjectOnPlane(_inputDir.ToIso(), _slopeHit.normal).normalized * _speed * 10, ForceMode.Force);
         }
         else{
             _playerRB.AddForce(_inputDir.ToIso() * _speed * 10, ForceMode.Force);
@@ -85,8 +92,9 @@ public class PlayerMovement : MonoBehaviour
         _player.DecreaseStamina(25);
     }
     private void Dash(){
+
         if(OnSlope()){
-            _playerRB.AddForce(Vector3.ProjectOnPlane(_inputDir.ToIso(), _slopeHit.normal) * DashForce, ForceMode.Force);
+            _playerRB.AddForce(Vector3.ProjectOnPlane(_inputDir.ToIso(), _slopeHit.normal).normalized * DashForce, ForceMode.Force);
         }
         else{
             _playerRB.AddForce(_inputDir.ToIso() * DashForce, ForceMode.Force);
@@ -116,6 +124,12 @@ public class PlayerMovement : MonoBehaviour
         else{
             _speed = WalkSpeed;
         }
+        if(_onGround && _groundHit.collider.CompareTag("SlowZone")){
+            Slowing();
+        }
+    }
+    public void Slowing(){
+        _speed = WalkSpeed/2;
     }
     private void SpeedControl(){
         Vector3 flowVel = new Vector3(_playerRB.velocity.x, 0, _playerRB.velocity.z);
@@ -127,8 +141,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public bool OnSlope(){
-        if(Physics.Raycast(transform.position, Vector3.down, out  _slopeHit,2 * 0.5f + 0.2f)){
-            float angle = Vector3.Angle(Vector3.up, _slopeHit.point);
+        if(Physics.Raycast(transform.position, Vector3.down, out  _slopeHit, 2 * 0.5f + 0.3f)){
+            float angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
             return (angle < MaxAngleOnSlop && angle != 0);
         }
         return false;

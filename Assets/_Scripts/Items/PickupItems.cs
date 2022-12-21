@@ -5,7 +5,9 @@ using UnityEngine;
 public class PickupItems : MonoBehaviour
 {
     public string ItemName;
+    public bool ForPlayer;
     public Item Item;
+    //enum 
     public Items ItemDrop;
 
     private void Start() {
@@ -29,7 +31,7 @@ public class PickupItems : MonoBehaviour
                 return;
             }
         }
-        Inventory.Instance.Items.Add(new ItemList(Item, Item.Name, 1));
+        Inventory.Instance.Items.Add(new ItemList(Item, Item.Name, 1, ForPlayer));
     }
     
 
@@ -38,6 +40,7 @@ public class PickupItems : MonoBehaviour
             case Items.HealighItem: return new HealighItem();
             case Items.FireDamageItem: return new FireDamageItem();
             case Items.IncreaseMaxHp: return new IncreaseMaxHp();
+            case Items.Stamina: return new Stamina();
 
             default: return new HealighItem();
         }

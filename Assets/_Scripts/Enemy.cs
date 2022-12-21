@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    public delegate void OnDie(int dropCoin);
+    public delegate void OnDie(ResourcesType type,int dropCoin);
     public static OnDie OnDieEvent;
     
-    private void OnMouseDown() {
-        TakeDamage(5, DamageType.Physical);
-        Inventory.Instance.CallItemOnHit(this);
+    private void Update() {
+        if(_hp <= 0){
+            Die();
+        }
+        ArmorRecovery();
     }
-
-
-
+    
     protected override void Die(){
-        OnDieEvent(5);
+        OnDieEvent(ResourcesType.Coin, 5);
         Destroy(gameObject);
     }
 }

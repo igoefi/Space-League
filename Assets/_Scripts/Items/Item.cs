@@ -16,12 +16,19 @@ public abstract class Item
     public virtual void OnDrop(Player player){
         
     }
+
+    // methods for weapon items
+    // public virtual void OnPickup(Weapon weapon, int stacks){
+
+    // }
+    // public virtual void OnDrop(Weapon weapon){
+        
+    // }
 }
 public class HealighItem : Item {
     public override void Update(Player player, int stacks){
         player.HpRecovery(5 * stacks);
     }
-    
 }
 public class FireDamageItem : Item{
     public override void OnHit(Enemy enemy, int stacks){
@@ -30,11 +37,18 @@ public class FireDamageItem : Item{
 }
 public class IncreaseMaxHp : Item{
     public override void OnPickup(Player player, int stacks){
-        player.SetMaxHp(20);
-
+        player.SetBonusMaxHp(20);
     }
     public override void OnDrop(Player player){
-        player.SetMaxHp(-20);
+        player.SetBonusMaxHp(-20);
     }
 
+}
+public class Stamina : Item{
+    public override void OnPickup(Player player, int stacks){
+        player.SetBonusStaminaRegen(5);
+    }
+    public override void OnDrop(Player player){
+        player.SetBonusStaminaRegen(-5);
+    }
 }
