@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour
 {
-    private Transform _transform;
-
+    
     private float _damage;
     private float _speed;
-
     private float _lifeTime;
-
     private bool _isReady = false;
+    private Vector3 _forward;
+    
 
     private void Start()
     {
-        _transform = GetComponent<Transform>();
+        
+        _forward = Vector3.Normalize(transform.position - new Vector3(Input.mousePosition.x,Input.mousePosition.y,1));
+       
     }
 
     void Update()
     {
         if (!_isReady) return;
-
-        _transform.position += _transform.forward * _speed * Time.deltaTime;
+        
+       transform.position = transform.position +  _forward * 1f*Time.deltaTime;
     }
 
     public void SetParaments(float baseDamage, float critChance, float critDamageCoef, int weaponLevel, float speed, float lifeTime)
