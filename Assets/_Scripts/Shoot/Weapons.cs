@@ -16,6 +16,8 @@ public abstract class Weapons : MonoBehaviour
     [Header("Other")]
     [SerializeField] protected int ammo;
     [SerializeField] protected float reloadTime;
+    [SerializeField] protected float bulletSpeed;
+    [SerializeField] protected float bulletLife;
     [SerializeField] protected int currentUpgradeLevel;
     [SerializeField] protected int maxUpgradeLevel;
     protected bool _reloading = false;

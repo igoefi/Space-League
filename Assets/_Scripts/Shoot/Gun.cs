@@ -7,10 +7,10 @@ public class Gun : Weapons
 
     protected override  void Fire()
     {
-        GameObject projectile = Instantiate(projectilePrefab, projectileSpauner.transform.position, Quaternion.identity);
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpauner.transform.position, projectileSpauner.transform.rotation);
         if (projectile.TryGetComponent<ProjectileScript>(out ProjectileScript projectileScript))
         {
-            projectileScript.SetParaments(1, 1, 1, 1, 1, 10);
+            projectileScript.SetParaments(damage,critChance,critDamageCoef,currentUpgradeLevel,bulletSpeed, bulletLife);
         }
         _currentAmmo--;
         StartCoroutine(WaitForReady());

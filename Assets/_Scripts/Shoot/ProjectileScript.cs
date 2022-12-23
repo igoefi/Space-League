@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour
@@ -9,26 +10,26 @@ public class ProjectileScript : MonoBehaviour
     private float _speed;
     private float _lifeTime;
     private bool _isReady = false;
-    private Vector3 _forward;
+    
     
 
     private void Start()
     {
         
-        _forward = Vector3.Normalize(transform.position - new Vector3(Input.mousePosition.x,Input.mousePosition.y,1));
+       
        
     }
 
     void Update()
     {
         if (!_isReady) return;
-        
-       transform.position = transform.position +  _forward * 1f*Time.deltaTime;
+
+        transform.position += transform.forward * _speed * Time.deltaTime;
     }
 
-    public void SetParaments(float baseDamage, float critChance, float critDamageCoef, int weaponLevel, float speed, float lifeTime)
+    public void SetParaments(float weaponDamage, float critChance, float critDamageCoef, int weaponLevel, float speed, float lifeTime)
     {
-        _damage = baseDamage * weaponLevel;
+        _damage = weaponDamage * weaponLevel;
 
         if (Random.Range(0, 100) <= critChance)
             _damage *= critDamageCoef;
@@ -43,8 +44,8 @@ public class ProjectileScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //для соприкосновения с кем-либо
-
+        Debug.Log("Damage: " + _damage);
+        Destroy(this.gameObject);
     }
 
     private IEnumerator Destroy()
