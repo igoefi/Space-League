@@ -20,6 +20,10 @@ public abstract class Weapons : MonoBehaviour
     [SerializeField] protected float bulletLife;
     [SerializeField] protected int currentUpgradeLevel;
     [SerializeField] protected int maxUpgradeLevel;
+    [Header("Sounds")]
+    [SerializeField] protected AudioClip shootSound;
+    [SerializeField] protected AudioClip reloadingSound;
+    protected AudioSource audio;
     protected bool _reloading = false;
     protected bool _readyToFire = true;
     protected int _currentAmmo;
@@ -28,6 +32,7 @@ public abstract class Weapons : MonoBehaviour
     private void Start()
     {
         _currentAmmo = ammo;
+        audio = GetComponentInChildren<AudioSource>();
     }
     private void Update()
     {
@@ -49,8 +54,10 @@ public abstract class Weapons : MonoBehaviour
     { 
         _reloading = true;
         _currentAmmo = ammo;
+        audio.PlayOneShot(reloadingSound);
         yield return new WaitForSeconds(reloadTime);
         _reloading = false;
+
     }
 
     public string Ammo()

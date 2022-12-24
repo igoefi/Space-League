@@ -26,6 +26,7 @@ public class Shotgun : Weapons
             projectileScript_2.SetParaments(damage, critChance, critDamageCoef, currentUpgradeLevel, bulletSpeed, bulletLife);
         }
         _currentAmmo--;
+        audio.PlayOneShot(shootSound);
         StartCoroutine(WaitForReady());
     }
 }
