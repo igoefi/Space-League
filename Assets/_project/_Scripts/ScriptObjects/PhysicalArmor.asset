@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b730fd199b30ecd4ea7ab3e7c59b9e3a, type: 3}
+  m_Name: PhysicalArmor
+  m_EditorClassIdentifier: 
+  Name: pa
+  Type: 0
+  Durability: 0
+  _armor: 0
+  CooldownRegen: 0
+  SpeedRegen: 0
+  StartResistance:
+  - type: 0
+    values: 0
+  - type: 0
+    values: 0
+  - type: 0
+    values: 0
+  _timerArmor: 0
