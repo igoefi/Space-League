@@ -19,7 +19,6 @@ public class EnemyAI : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
         _navMeshAgent.stoppingDistance = _maxDistanceToPlayer;
-
     }
 
     private void FixedUpdate()
