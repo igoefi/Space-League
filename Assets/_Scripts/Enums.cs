@@ -17,11 +17,6 @@ public enum Stats{
     MaxStamina,
     MaxAmmo,
 }
-public enum Items{
-    HealighItem,
-    FireDamageItem,
-    IncreaseMaxHp,
-    Stamina
-}
+
 
 

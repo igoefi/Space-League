@@ -11,7 +11,9 @@ public class Enemy : Character
         if(_hp <= 0){
             Die();
         }
-        ArmorRecovery();
+        if(_armor != null){
+            _armor.ArmorRecovery();
+        }
     }
     
     protected override void Die(){

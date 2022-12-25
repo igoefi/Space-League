@@ -8,16 +8,29 @@ public class Player : Character
     private Dictionary<Stats, int> _treeUpdateStats = new Dictionary<Stats, int>();
 
     [SerializeField]protected float _stamina;
-    protected float _staminaRegen = 5;
+    [SerializeField]protected float _staminaRegen = 5;
     protected float _maxStamina = 100;
     protected float _bonusMaxStamina;
+
     public float Stamina{
         get => _stamina;
     }
-
+    protected PlayerMovement _movement;
+    public PlayerMovement MovementRef {
+        get => _movement;
+    }
+    private void OnMouseDown() {
+        TakeDamage(10, DamageType.Physical);
+    }
     private new  void Start() {
         base.Start();
+        InitUpdateTree();
+        
         _stamina = _maxStamina;
+
+        _movement = GetComponent<PlayerMovement>();
+    }
+    private void InitUpdateTree(){
         _treeUpdateStats[Stats.MaxHealth] = 0;
         _treeUpdateStats[Stats.MaxStamina] = 0;
         _treeUpdateStats[Stats.MaxAmmo] = 0;
@@ -27,10 +40,7 @@ public class Player : Character
             Die();
         }
         StaminaRecovery();
-        ArmorRecovery();
-    }
-    private void OnMouseDown() {
-        StartCoroutine(TakePoisonDamage());
+        _armor.ArmorRecovery();
     }
     public virtual void DecreaseStamina(float amount){
         _stamina -= amount;

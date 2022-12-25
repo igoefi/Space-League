@@ -34,6 +34,8 @@ public class Inventory : MonoBehaviour
             items.Remove(items[itemIndex]);
         }
     }
+    #region CallItems func
+        
     private IEnumerator CallItemUpdate(){
         foreach(ItemList item in items){
             item.Item.Update(_playerRef, item.Stacks);
@@ -64,4 +66,5 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    #endregion
 }

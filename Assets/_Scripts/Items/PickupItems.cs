@@ -41,6 +41,7 @@ public class PickupItems : MonoBehaviour
             case Items.FireDamageItem: return new FireDamageItem();
             case Items.IncreaseMaxHp: return new IncreaseMaxHp();
             case Items.Stamina: return new Stamina();
+            case Items.SpeedItem: return new SpeedItem();
 
             default: return new HealighItem();
         }
