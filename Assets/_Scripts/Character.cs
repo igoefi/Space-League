@@ -28,10 +28,10 @@ public abstract class Character : MonoBehaviour, IDamageable
         }
     }
     public virtual void TakeDamage(float damage, DamageType type){
+        if(!_onNegativeEffect)
+            StartCoroutine(TakeDamageOverTime(damage/2, type));
         if(_armor != null && !_armor.IsDestroyed){
             _armor.DamageArmor(damage, type);
-            if(!_onNegativeEffect)
-                StartCoroutine(TakeDamageOverTime(damage/2, type));
             Debug.Log("Damage take " + damage / _armor.Resistance[type]);
         }
         else{
@@ -43,7 +43,7 @@ public abstract class Character : MonoBehaviour, IDamageable
         _onNegativeEffect = true;
         float timer = 0;
          while(timer < 3){
-            TakeDamage(5 * Time.deltaTime, DamageType.Shock);
+            TakeDamage(damage * Time.deltaTime, type);
             OnNegativeEffectEvent();
             timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();

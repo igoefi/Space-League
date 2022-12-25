@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b730fd199b30ecd4ea7ab3e7c59b9e3a, type: 3}
   m_Name: PhysicalArmor
   m_EditorClassIdentifier: 
-  Name: PhysicalArmor
+  Name: pa
   Type: 0
-  Durability: 100
-  CooldownRegen: 3
-  SpeedRegen: 10
+  Durability: 0
+  _armor: 0
+  CooldownRegen: 0
+  SpeedRegen: 0
   StartResistance:
   - type: 0
-    values: 1.5
-  - type: 1
-    values: 1.2
-  - type: 2
-    values: 1.2
+    values: 0
+  - type: 0
+    values: 0
+  - type: 0
+    values: 0
+  _timerArmor: 0
