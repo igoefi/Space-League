@@ -23,7 +23,7 @@ public abstract class Weapons : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] protected AudioClip shootSound;
     [SerializeField] protected AudioClip reloadingSound;
-    protected AudioSource audio;
+    protected AudioSource _audio;
     protected bool _reloading = false;
     protected bool _readyToFire = true;
     protected int _currentAmmo;
@@ -32,11 +32,11 @@ public abstract class Weapons : MonoBehaviour
     private void Start()
     {
         _currentAmmo = ammo;
-        audio = GetComponentInChildren<AudioSource>();
+        _audio = GetComponentInChildren<AudioSource>();
     }
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)&&_readyToFire&&_currentAmmo!=0&&!_reloading) 
+        if(Input.GetMouseButton(0)&&_readyToFire&&_currentAmmo!=0&&!_reloading) 
             Fire();
 
         if (_currentAmmo == 0 || Input.GetKeyDown(KeyCode.R)) 
@@ -45,16 +45,14 @@ public abstract class Weapons : MonoBehaviour
         }
         
     }
-     protected virtual  void Fire()
-    {
-        
-    }
+    protected abstract void Fire();
+
 
     protected IEnumerator Reload() 
     { 
         _reloading = true;
         _currentAmmo = ammo;
-        audio.PlayOneShot(reloadingSound);
+        _audio.PlayOneShot(reloadingSound);
         yield return new WaitForSeconds(reloadTime);
         _reloading = false;
 
