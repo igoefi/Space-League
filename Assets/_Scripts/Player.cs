@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMovement))]
 public class Player : Character
 {
     private int _maxLvl = 4;
@@ -40,6 +41,7 @@ public class Player : Character
             Die();
         }
         StaminaRecovery();
+        if(_armor != null)
         _armor.ArmorRecovery();
     }
     public virtual void DecreaseStamina(float amount){
