@@ -55,10 +55,10 @@ public class Stamina : Item{
 public class SpeedItem : Item{
     public override void OnPickup(Player player, int stacks){
         player.MovementRef.SetBonusWalkSpeed(3);
-        player.MovementRef.SetBonusDashSpeed(3);
+        player.MovementRef.SetBonusDashSpeed(6);
     }
     public override void OnDrop(Player player){
         player.MovementRef.SetBonusWalkSpeed(-3);
-        player.MovementRef.SetBonusDashSpeed(-3); 
+        player.MovementRef.SetBonusDashSpeed(-6); 
     }
 }
