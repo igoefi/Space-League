@@ -23,5 +23,4 @@ public class Resources
             PlayerPrefs.SetInt(((ResourcesType)i).ToString(), _storage[(ResourcesType)i]);
         }
     }
-
 }
