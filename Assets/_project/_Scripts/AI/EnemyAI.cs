@@ -4,8 +4,7 @@ using UnityEngine.Events;
 
 public class EnemyAI : MonoBehaviour
 {
-    public UnityEvent FrontOfPlayer { get; private set; } = new();
-    public UnityEvent MoveToPlayer { get; private set; } = new();
+    public UnityEvent<bool> FrontOfPlayer{ get; private set; } = new();
 
     private NavMeshAgent _navMeshAgent;
     private Transform _playerTransform;
@@ -18,22 +17,8 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        FrontOfPlayer.AddListener(Attack);
-        MoveToPlayer.AddListener(Move);
 
         _navMeshAgent.stoppingDistance = _maxDistanceToPlayer;
-
-        MoveToPlayer.Invoke();
-    }
-
-    //to check
-    private void Attack()
-    {
-        Debug.Log("Attack");
-    }
-    private void Move()
-    {
-        Debug.Log("Move");
     }
 
     private void FixedUpdate()
@@ -45,7 +30,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (!_isMoving) return;
 
-            FrontOfPlayer.Invoke();
+            FrontOfPlayer.Invoke(true);
 
             _navMeshAgent.isStopped = true;
             _isMoving = false;
@@ -53,12 +38,15 @@ public class EnemyAI : MonoBehaviour
         else
         {
             if (!_isMoving)
-                MoveToPlayer.Invoke();
+            {
+                FrontOfPlayer.Invoke(false);
+                _isMoving = true;
+                _navMeshAgent.isStopped = false;
+            }
 
-            _navMeshAgent.isStopped = false;
             _navMeshAgent.SetDestination(_playerTransform.position);
 
-            _isMoving = true;
+
         }
     }
 
