@@ -1,0 +1,24 @@
+чтобы наносить урон нужно получить интерфейс IDamageable (GetComponent<IDamageable>().TakeDamage или TakeDamageOverTime)
+
+класс Character родитель классов Player и Enemy в нем есть реализация здоровья , брони и интерфейс IDamageable
+
+класс Inventory является синглтоном поэтому доступ к нему можно получить по сылке Inventory.Instance...
+так же в нем реализовано хранилище ресурсов и список придметов так же медоды вызывающие методы предметов
+CallItemUpdate()
+CallItemOnHit()
+CallItemOnPickup()
+
+Item Абстрактный класс в нем 4 медода 
+    Update вызывается 1 раз в секунду в методе CallItemUpdate, 
+    OnHit выдывается  в методе CallItemOnHit и его нужно вызывать при поподании по врагам ( Inventory.Instance.CallItemOnHit())
+    OnPickup вызывается при подборе предмета 
+    OnDrop вызывается при выбрасование предмета
+
+чтобы сделать предмет нужно наследовтьпростому класcу класc Item  (HialingItem : Item)
+и реализовать нужный метод
+
+чтобы предмет можнобыло подобрать
+    нужно добавить навание вашего предмета в enum Items
+    и добавить case в методе AssignItem Item.NameItem (case Items.SpeedItem: return new SpeedItem()) new SpeedItem стоздание экземпляра класса предмета
+
+класс ItemList нужен для хранения в списке предменотов в классе Inventory

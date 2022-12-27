@@ -27,29 +27,33 @@ public abstract class Character : MonoBehaviour, IDamageable
             _armor.Init();
         }
     }
+
+    //метод для нанисения урона принимает количество урона и тип урона 
     public virtual void TakeDamage(float damage, DamageType type){
-        if(!_onNegativeEffect)
-            StartCoroutine(TakeDamageOverTime(damage/2, type));
         if(_armor != null && !_armor.IsDestroyed){
             _armor.DamageArmor(damage, type);
-            Debug.Log("Damage take " + damage / _armor.Resistance[type]);
         }
         else{
             _hp -= damage;
-            Debug.Log("Damage take " + damage);
         }
     }
+
+    //метод для наличия переодического урона
     public IEnumerator TakeDamageOverTime(float damage, DamageType type){
-        _onNegativeEffect = true;
-        float timer = 0;
-         while(timer < 3){
-            TakeDamage(damage * Time.deltaTime, type);
-            OnNegativeEffectEvent();
-            timer += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+        if(!_onNegativeEffect){
+            _onNegativeEffect = true;
+            float timer = 0;
+            while(timer < 3){
+                TakeDamage(damage * Time.deltaTime, type);
+                OnNegativeEffectEvent();
+                timer += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            _onNegativeEffect = false;
         }
-        _onNegativeEffect = false;
     }
+
+    //метод смерти который можно переписать под каждого кто наследует класс
     protected virtual void Die(){
         Debug.Log("Lol you die");
     }

@@ -131,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
             Slowing();
         }
     }
+    
     private void SpeedControl(){
         Vector3 flowVel = new Vector3(_playerRB.velocity.x, 0, _playerRB.velocity.z);
 

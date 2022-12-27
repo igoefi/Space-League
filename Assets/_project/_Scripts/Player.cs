@@ -12,17 +12,19 @@ public class Player : Character
     [SerializeField]protected float _staminaRegen = 5;
     protected float _maxStamina = 100;
     protected float _bonusMaxStamina;
-
     public float Stamina{
         get => _stamina;
     }
+
     protected PlayerMovement _movement;
     public PlayerMovement MovementRef {
         get => _movement;
     }
+
     private void OnMouseDown() {
         TakeDamage(10, DamageType.Physical);
     }
+
     private new  void Start() {
         base.Start();
         InitUpdateTree();
@@ -31,11 +33,13 @@ public class Player : Character
 
         _movement = GetComponent<PlayerMovement>();
     }
+
     private void InitUpdateTree(){
         _treeUpdateStats[Stats.MaxHealth] = 0;
         _treeUpdateStats[Stats.MaxStamina] = 0;
         _treeUpdateStats[Stats.MaxAmmo] = 0;
     }
+
     private void Update() {
         if(_hp <= 0){
             Die();
@@ -44,26 +48,32 @@ public class Player : Character
         if(_armor != null)
         _armor.ArmorRecovery();
     }
+
     public virtual void DecreaseStamina(float amount){
         _stamina -= amount;
     }
+
     public virtual void StaminaRecovery(){
         if(_stamina < _maxStamina){
             _stamina += _staminaRegen * Time.deltaTime;
         }
     }
+
     public virtual void HpRecovery(float amount){
         _hp += amount;
         _hp = _hp > _maxHp + _bonusMaxHp ? _maxHp + _bonusMaxHp : _hp;
     }
+
     public void SetBonusMaxHp(float amount){
         _bonusMaxHp += amount;
         _hp = _maxHp + _bonusMaxHp;
     }
+
     public void SetBonusMaxStamina(float amount){
         _bonusMaxStamina += amount;
         _stamina = _maxStamina + _bonusMaxStamina;
     }
+
     public void SetBonusStaminaRegen(float amount){
         _staminaRegen += amount;
     }
@@ -78,9 +88,6 @@ public class Player : Character
             case Stats.MaxAmmo : SetBonusMaxHp(30); break;
         }
     }
-    
-    
-    
 }
 
 
