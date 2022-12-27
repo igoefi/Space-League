@@ -23,12 +23,11 @@ public class EnemyVision : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, target.position) < distance)
         {
-            if (RayToScan())
-            {
-                _enemyAI.enabled = true;
-                _enemyAI.SetTarget(target);
-                this.enabled = false;
-            }
+            if (!RayToScan()) return;
+
+            _enemyAI.enabled = true;
+            _enemyAI.SetTarget(target);
+            this.enabled = false;
         }
     }
 
