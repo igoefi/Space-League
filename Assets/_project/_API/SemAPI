@@ -1,4 +1,7 @@
 чтобы наносить урон нужно получить интерфейс IDamageable (GetComponent<IDamageable>().TakeDamage или TakeDamageOverTime)
+    методы принимают количество урона и тип урона (TakeDamage(25, DamageType.Fire))
+
+Так же можно наследовать  интерфейс IDamageable  любому класcу которы долже получать урон и реализовать его методы
 
 класс Character родитель классов Player и Enemy в нем есть реализация здоровья , брони и интерфейс IDamageable
 
