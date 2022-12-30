@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+public class PickupInfo : EventArgs{
+    public ItemList Item;
+}
 
 public class PickupItems : MonoBehaviour
 {
     public string ItemName;
     public bool ForPlayer;
+    public Sprite ItemSprite;
     public Item Item;
     //enum 
     public Items ItemDrop;
 
+
+    public PickupInfo Info = new PickupInfo();
+    public EventHandler<PickupInfo> PickupEvent;
+
     private void Start() {
         Item = AssignItem(ItemDrop);
         Item.Name = ItemName;
+        Info.Item = new ItemList(Item, Item.Name, 1, ForPlayer);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -28,10 +39,12 @@ public class PickupItems : MonoBehaviour
             if(Item.Name == item.Name){
                 item.Stacks++;
                 item.IsUsed = false;
+                item.ItemSprite = ItemSprite;
                 return;
             }
         }
-        Inventory.Instance.Items.Add(new ItemList(Item, Item.Name, 1, ForPlayer));
+        //PickupEvent.Invoke(this, Info);
+        Inventory.Instance.Items.Add(Info.Item);
     }
     
 

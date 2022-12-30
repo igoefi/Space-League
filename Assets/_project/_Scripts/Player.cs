@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+
+public class EventDataPlayer : EventArgs{
+    public float HP;
+    public float Stamina;
+    public float Armor;
+}
 
 [RequireComponent(typeof(PlayerMovement))]
 public class Player : Character
 {
     private int _maxLvl = 4;
     private Dictionary<Stats, int> _treeUpdateStats = new Dictionary<Stats, int>();
+
+    private EventDataPlayer Data = new EventDataPlayer();
+    public EventHandler<EventDataPlayer> UpdateUIDataEvent;
 
     [SerializeField]protected float _stamina;
     [SerializeField]protected float _staminaRegen = 5;
@@ -41,6 +52,9 @@ public class Player : Character
     }
 
     private void Update() {
+        UpdateDataEvent();
+        UpdateUIDataEvent.Invoke(this, Data);
+
         if(_hp <= 0){
             Die();
         }
@@ -49,6 +63,12 @@ public class Player : Character
         _armor.ArmorRecovery();
     }
 
+
+    private void UpdateDataEvent(){
+        Data.Armor = _armor == null ? 0 : _armor.Percent;
+        Data.HP = _hp / (_maxHp + _bonusMaxHp);
+        Data.Stamina = _stamina / (_maxStamina + _bonusMaxStamina);
+    }
     public virtual void DecreaseStamina(float amount){
         _stamina -= amount;
     }

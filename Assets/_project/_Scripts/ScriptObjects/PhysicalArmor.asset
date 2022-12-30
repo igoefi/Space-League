@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: pa
   Type: 0
-  Durability: 0
-  _armor: 0
-  CooldownRegen: 0
-  SpeedRegen: 0
+  Durability: 100
+  _armor: 66.05785
+  CooldownRegen: 1
+  SpeedRegen: 10
   StartResistance:
   - type: 0
-    values: 0
-  - type: 0
-    values: 0
-  - type: 0
-    values: 0
-  _timerArmor: 0
+    values: 1
+  - type: 2
+    values: 1
+  - type: 1
+    values: 1
+  _timerArmor: -0.005312848
