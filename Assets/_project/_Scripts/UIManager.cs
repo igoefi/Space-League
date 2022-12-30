@@ -6,7 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]private TextMeshProUGUI _ammoText;
-
+    [SerializeField]private Image _grenade;
     [SerializeField]private TextMeshProUGUI _resurcesText;
 
     [SerializeField]private Image _hpImage;
@@ -17,19 +17,21 @@ public class UIManager : MonoBehaviour
     [SerializeField]private GameObject _bossBlock;
     [SerializeField]private TextMeshProUGUI _bossName;
 
-    [SerializeField]private GameObject _itemBlock;
+    [SerializeField]private GameObject _inventoryBlock;
     public GameObject ButtonPrefab;
-    private List<Button> _buttons = new List<Button>();
+    [SerializeField]private List<Button> _buttons = new List<Button>();
+    [SerializeField]private Sprite _defoultSprite;
 
     private void Start() {
         Inventory.Instance.UpdateUIDataEvent += UpdateUIResources;
+        Inventory.Instance.DropItemEvent += UpdateItemsBlock;
         FindObjectOfType<Player>().UpdateUIDataEvent += UpdateUIPlayer;
         Enemy.BossUpdateUIEvent += UpdateUIBoss;
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.B)){
-            _itemBlock.SetActive(!_itemBlock.activeSelf);
+            _inventoryBlock.SetActive(!_inventoryBlock.activeSelf);
             UpdateItemsBlock();
         }
     }
@@ -37,6 +39,9 @@ public class UIManager : MonoBehaviour
         _ammoText.text = $"{dataResources.Resources[ResourcesType.Ammo]}/ 100";
 
         _resurcesText.text = $"{dataResources.Resources[ResourcesType.Wood]} / {dataResources.Resources[ResourcesType.Iron]} / {dataResources.Resources[ResourcesType.Coin]}";
+
+        _grenade.fillAmount = (float)dataResources.Grenade / dataResources.MaxGrenade;
+        Debug.Log(dataResources.MaxGrenade + " " + dataResources.Grenade / dataResources.MaxGrenade);
     }
 
     private void UpdateUIPlayer(object sender, EventDataPlayer dataPlayer){
@@ -51,13 +56,12 @@ public class UIManager : MonoBehaviour
     }
 
     private void UpdateItemsBlock(){
-        if(Inventory.Instance.Items.Count != _buttons.Count){
-            for(int i = _buttons.Count; i < Mathf.Abs(_buttons.Count - Inventory.Instance.Items.Count); i++){
-                Button newButton = Instantiate(ButtonPrefab, transform.position, Quaternion.identity).GetComponent<Button>();
-                newButton.transform.parent = _itemBlock.transform;
-                newButton.image.sprite = Inventory.Instance.Items[i].ItemSprite;
-                
-                _buttons.Add(newButton);
+        for(int i = 0; i < _buttons.Count; i++){
+            if(i >= Inventory.Instance.Items.Count){
+                _buttons[i].image.sprite = _defoultSprite;
+            }
+            else{
+                _buttons[i].image.sprite = Inventory.Instance.Items[i].ItemSprite;
             }
         }
     }

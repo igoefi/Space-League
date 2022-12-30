@@ -40,6 +40,7 @@ public class Player : Character
         base.Start();
         InitUpdateTree();
         
+        
         _stamina = _maxStamina;
 
         _movement = GetComponent<PlayerMovement>();

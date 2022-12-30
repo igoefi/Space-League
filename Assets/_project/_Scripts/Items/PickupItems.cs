@@ -23,7 +23,7 @@ public class PickupItems : MonoBehaviour
     private void Start() {
         Item = AssignItem(ItemDrop);
         Item.Name = ItemName;
-        Info.Item = new ItemList(Item, Item.Name, 1, ForPlayer);
+        Info.Item = new ItemList(Item, Item.Name, 1, ForPlayer, ItemSprite);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -39,7 +39,6 @@ public class PickupItems : MonoBehaviour
             if(Item.Name == item.Name){
                 item.Stacks++;
                 item.IsUsed = false;
-                item.ItemSprite = ItemSprite;
                 return;
             }
         }

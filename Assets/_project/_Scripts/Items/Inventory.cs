@@ -7,6 +7,9 @@ using UnityEngine.Events;
 
 public class EventDataInventory : EventArgs{
     public Dictionary<ResourcesType, int> Resources = new Dictionary<ResourcesType, int>();
+    public int MaxResusrce;
+    public int MaxGrenade;
+    public int Grenade;
 }
 
 public class Inventory : MonoBehaviour
@@ -16,7 +19,8 @@ public class Inventory : MonoBehaviour
     public EventHandler<EventDataInventory> UpdateUIDataEvent;
     public EventDataInventory Data = new EventDataInventory();
     
-
+    public delegate void DropItemDelegate();
+    public DropItemDelegate DropItemEvent;
     [SerializeField]private Resources _resources;
     [SerializeField]private List<ItemList> items = new List<ItemList>();
     public List<ItemList> Items{
@@ -42,6 +46,8 @@ public class Inventory : MonoBehaviour
             _resources.DResources(ResourcesType.Iron, 23);
             _resources.DResources(ResourcesType.Wood, 3);
             _resources.DResources(ResourcesType.Ammo, 5);
+            _resources.Grenade -= 1;
+            Debug.Log(_resources.Grenade);
             UpdateDataArg();
         }
     }   
@@ -51,6 +57,10 @@ public class Inventory : MonoBehaviour
         foreach(var res in _resources.Storage){
             Data.Resources[res.Key] = res.Value;
         }
+        Data.MaxGrenade = _resources.MaxGrenade;
+        Data.MaxResusrce = _resources.MaxCountResources;
+        Data.Grenade = _resources.Grenade;
+
     }
 
     public void DropItem(int itemIndex){
@@ -62,6 +72,7 @@ public class Inventory : MonoBehaviour
             items[itemIndex].Item.OnDrop(_playerRef);
             items.Remove(items[itemIndex]);
         }
+        DropItemEvent.Invoke();
     }
     #region CallItems func
         
