@@ -36,8 +36,8 @@ public class UIManager : MonoBehaviour
         }
     }
     private void UpdateUIResources(object sender, EventDataInventory dataResources){
-        _ammoText.text = $"{dataResources.Resources[ResourcesType.Ammo]}/ 100";
-
+        _ammoText.text = $"{dataResources.CurrentAmmoInWeapon} / {dataResources.Resources[ResourcesType.Ammo]}";
+        Debug.Log(dataResources.CurrentAmmoInWeapon);
         _resurcesText.text = $"{dataResources.Resources[ResourcesType.Wood]} / {dataResources.Resources[ResourcesType.Iron]} / {dataResources.Resources[ResourcesType.Coin]}";
 
         _grenade.fillAmount = (float)dataResources.Grenade / dataResources.MaxGrenade;
