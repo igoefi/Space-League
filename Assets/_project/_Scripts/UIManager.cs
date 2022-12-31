@@ -37,11 +37,10 @@ public class UIManager : MonoBehaviour
     }
     private void UpdateUIResources(object sender, EventDataInventory dataResources){
         _ammoText.text = $"{dataResources.CurrentAmmoInWeapon} / {dataResources.Resources[ResourcesType.Ammo]}";
-        Debug.Log(dataResources.CurrentAmmoInWeapon);
+        
         _resurcesText.text = $"{dataResources.Resources[ResourcesType.Wood]} / {dataResources.Resources[ResourcesType.Iron]} / {dataResources.Resources[ResourcesType.Coin]}";
 
         _grenade.fillAmount = (float)dataResources.Grenade / dataResources.MaxGrenade;
-        Debug.Log(dataResources.MaxGrenade + " " + dataResources.Grenade / dataResources.MaxGrenade);
     }
 
     private void UpdateUIPlayer(object sender, EventDataPlayer dataPlayer){
@@ -59,9 +58,11 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < _buttons.Count; i++){
             if(i >= Inventory.Instance.Items.Count){
                 _buttons[i].image.sprite = _defoultSprite;
+                _buttons[i].image.color = new Color(0,0,0,0);
             }
             else{
                 _buttons[i].image.sprite = Inventory.Instance.Items[i].ItemSprite;
+                _buttons[i].image.color = new Color(1,1,1,1);
             }
         }
     }

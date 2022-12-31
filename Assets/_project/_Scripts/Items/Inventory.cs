@@ -67,11 +67,14 @@ public class Inventory : MonoBehaviour
         Data.MaxResusrce = _resources.MaxCountResources;
         Data.Grenade = _resources.Grenade;
         Data.CurrentAmmoInWeapon = _weapons[_weaponIndex].CurrentAmmo;
-        Debug.Log(_weapons[_weaponIndex].CurrentAmmo);
     }   
 
 
     public void DropItem(int itemIndex){
+        if(itemIndex >= items.Count) 
+            return;
+
+
         if(items[itemIndex].Stacks > 1){
             items[itemIndex].Stacks--;
             items[itemIndex].Item.OnDrop(_playerRef);

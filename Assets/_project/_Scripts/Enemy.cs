@@ -33,9 +33,6 @@ public class Enemy : Character
         }
     }
 
-    private void OnMouseDown() {
-        TakeDamage(23, DamageType.Physical);
-    }
     private void OnDestroy() {
         Data.IsAlive = false;   
         BossUpdateUIEvent.Invoke(this, Data);
