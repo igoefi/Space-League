@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public abstract class Weapons : MonoBehaviour
 {
     [Header("Prefabs and Scripts")]
@@ -26,20 +27,21 @@ public abstract class Weapons : MonoBehaviour
     protected AudioSource _audio;
     protected bool _reloading = false;
     protected bool _readyToFire = true;
-    protected int _currentAmmo;
+    public int CurrentAmmo { get; protected set; }
+
     
 
     private void Start()
     {
-        _currentAmmo = ammo;
+        CurrentAmmo = ammo;
         _audio = GetComponentInChildren<AudioSource>();
     }
     private void Update()
     {
-        if(Input.GetMouseButton(0)&&_readyToFire&&_currentAmmo!=0&&!_reloading) 
+        if(Input.GetMouseButton(0)&&_readyToFire&&CurrentAmmo!=0&&!_reloading) 
             Fire();
 
-        if (_currentAmmo == 0 || Input.GetKeyDown(KeyCode.R)) 
+        if (CurrentAmmo == 0 || Input.GetKeyDown(KeyCode.R)) 
         {
             StartCoroutine(Reload()); 
         }
@@ -51,7 +53,7 @@ public abstract class Weapons : MonoBehaviour
     protected IEnumerator Reload() 
     { 
         _reloading = true;
-        _currentAmmo = ammo;
+        CurrentAmmo = ammo;
         _audio.PlayOneShot(reloadingSound);
         yield return new WaitForSeconds(reloadTime);
         _reloading = false;
@@ -61,7 +63,7 @@ public abstract class Weapons : MonoBehaviour
     public string Ammo()
     {
         if (_reloading) return "Reloading";
-        else return _currentAmmo + "/" + ammo;
+        else return CurrentAmmo + "/" + ammo;
     }
 
     protected IEnumerator WaitForReady()

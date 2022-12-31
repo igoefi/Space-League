@@ -12,7 +12,7 @@ public class Gun : Weapons
         {
             projectileScript.SetParaments(damage,critChance,critDamageCoef,currentUpgradeLevel,bulletSpeed, bulletLife);
         }
-        _currentAmmo--;
+        CurrentAmmo--;
         _audio.PlayOneShot(shootSound);
         StartCoroutine(WaitForReady());
     }
