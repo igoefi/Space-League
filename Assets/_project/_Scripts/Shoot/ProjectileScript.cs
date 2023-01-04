@@ -44,6 +44,11 @@ public class ProjectileScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.collider.CompareTag("Enemy")){
+            collision.collider.GetComponent<IDamageable>().TakeDamage(_damage, DamageType.Physical);
+        }
+
+
         Debug.Log("Damage: " + _damage);
         Destroy(this.gameObject);
     }

@@ -10,6 +10,7 @@ public enum ArmorType{
 public enum ResourcesType{
     Iron,
     Wood,
+    Ammo,
     Coin,
 }
 public enum Stats{

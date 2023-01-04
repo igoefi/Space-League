@@ -11,7 +11,7 @@ public class Rifle : Weapons
         {
             projectileScript.SetParaments(damage, critChance, critDamageCoef, currentUpgradeLevel, bulletSpeed, bulletLife);
         }
-        _currentAmmo--;
+        CurrentAmmo--;
         _audio.PlayOneShot(shootSound);
         StartCoroutine(WaitForReady());
     }

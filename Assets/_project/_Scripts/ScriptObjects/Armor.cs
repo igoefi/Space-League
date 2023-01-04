@@ -10,6 +10,8 @@ public class Armor : ScriptableObject
     public ArmorType Type;
     public float Durability;
     [SerializeField]private float _armor;
+
+    public float Percent { get => _armor / Durability; }
     public float CooldownRegen;
     public float SpeedRegen;
 

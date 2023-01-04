@@ -10,13 +10,14 @@ public class ItemList
     public bool IsUsed;
     public bool ForPlayer;
     public int Stacks;
+    public Sprite ItemSprite;
 
-    public ItemList(Item newItem, string newName, int newStacks, bool forPlayer){
+    public ItemList(Item newItem, string newName, int newStacks, bool forPlayer, Sprite sprite){
         Item = newItem;
         Name = newName;
         Stacks = newStacks;
         ForPlayer = forPlayer;
         IsUsed = false;
-
+        ItemSprite = sprite;
     }
 }

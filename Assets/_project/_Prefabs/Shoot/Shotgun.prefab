@@ -373,7 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpauner: {fileID: 514930324374519335}
   projectilePrefab: {fileID: 8760878753512200648, guid: 232d0765425ff1b478aa5e19ffbfd9fb, type: 3}
-  damage: 2
+  damage: 5
   fireInterval: 2
   critChance: 40
   critDamageCoef: 1.5

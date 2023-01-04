@@ -7,9 +7,7 @@ public abstract class Character : MonoBehaviour, IDamageable
     protected float _maxHp = 100;
     protected float _bonusMaxHp;
     [SerializeField]protected float _hp;
-    public float HP{
-        get => _hp;
-    }
+   
     
     [SerializeField]protected Armor _armor;
 
